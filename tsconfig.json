@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ng-calc-input": [
+        "dist/ng-calc-input"
+      ],
+      "ng-calc-input/*": [
+        "dist/ng-calc-input/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
