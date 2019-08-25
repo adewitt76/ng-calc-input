@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { NgCalcInputComponent } from './ng-calc-input.component';
-
-
+import { NgCalcInputDirective } from './ng-calc-input.directive';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [NgCalcInputComponent],
+  declarations: [NgCalcInputDirective],
   imports: [
+    CommonModule
   ],
-  exports: [NgCalcInputComponent]
+  exports: [NgCalcInputDirective]
 })
 export class NgCalcInputModule { }
