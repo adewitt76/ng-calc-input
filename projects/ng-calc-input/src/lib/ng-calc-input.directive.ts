@@ -15,32 +15,37 @@ export class NgCalcInputDirective {
     const isNumber = new RegExp('[0-9]').test(key);
     const isPeriod = key === '.';
     const isNegative = key === '-';
+    const isFirstNumber = this.inputElement.nativeElement.selectionStart === 0;
     const isZero = key === '0';
 
-    if(isNumber === false && 
-        isPeriod === false &&
-        isNegative === false) {
+    if (isNumber === false &&
+      isPeriod === false &&
+      isNegative === false) {
       event.preventDefault();
       return;
     }
 
-    if(isNegative) {
-      if(this.inputElement.nativeElement.selectionStart !== 0 ||
-          this.inputElement.nativeElement.value.includes('-') ) {
+    if (isNegative) {
+      if (this.inputElement.nativeElement.selectionStart !== 0 ||
+        this.inputElement.nativeElement.value.includes('-')) {
         event.preventDefault();
         return;
       }
     }
 
-    if(isPeriod) {
-      if(this.inputElement.nativeElement.value.includes('.')) {
+    if (isPeriod) {
+      if (this.inputElement.nativeElement.value.includes('.')) {
         event.preventDefault();
         return;
       }
     }
 
-    if(isZero) {
-      if(this.inputElement.nativeElement.value && this.inputElement.nativeElement.selectionStart === 0) {
+    if (isFirstNumber && this.inputElement.nativeElement.value < 0) {
+      event.preventDefault();
+    }
+
+    if (isZero) {
+      if (this.inputElement.nativeElement.value && isFirstNumber) {
         event.preventDefault();
         return;
       }

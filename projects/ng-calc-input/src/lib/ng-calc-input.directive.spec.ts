@@ -7,7 +7,7 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
 @Component({
   template: `<input type="text" calc-input [formControl]="numberInput">`
 })
-class TestInputComponent { 
+class TestInputComponent {
   numberInput = new FormControl('');
 
   onKeyPress(event: KeyboardEvent) {
@@ -21,7 +21,7 @@ describe('NgCalcInputDirective', () => {
   let inputDebugElement: DebugElement;
   let inputElement: HTMLInputElement;
 
-  beforeEach(() => { 
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         TestInputComponent,
@@ -104,7 +104,14 @@ describe('NgCalcInputDirective', () => {
     const eventSpy = simulateKeyPress(keypress);
     expect(eventSpy.preventDefault).toHaveBeenCalled();
   });
-  
+
+  it('should not allow any character to be typed before a negative sign', () => {
+    const keypress = '.';
+    setComponentValue('-120', 0, 0);
+    const eventSpy = simulateKeyPress(keypress);
+    expect(eventSpy.preventDefault).toHaveBeenCalled();
+  });
+
     // it('should not allow more characters than max character limit', () => {
     //   const maxCharLimit = 3;
     //   _component.maxCharacters = 3;
@@ -170,7 +177,7 @@ describe('NgCalcInputDirective', () => {
   function setComponentValue(value: string, selectionStart?: number, selectionEnd?: number): void {
     inputElement.value = value;
     inputElement.setSelectionRange(
-      selectionStart !== undefined ? selectionStart : value.length, 
+      selectionStart !== undefined ? selectionStart : value.length,
       selectionEnd !== undefined ? selectionEnd : value.length);
   }
 
