@@ -8,7 +8,6 @@ export class NgCalcInputDirective {
 
   constructor(private el: ElementRef) {
     this.inputElement = el;
-    this.inputElement.nativeElement.style.textAlign = 'right';
   }
 
   @HostListener('keypress', ['$event']) onKeyPress(event: KeyboardEvent) {

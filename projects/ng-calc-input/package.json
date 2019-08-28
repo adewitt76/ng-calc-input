@@ -1,8 +1,13 @@
 {
-  "name": "ng-calc-input",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/common": "^8.2.3",
-    "@angular/core": "^8.2.3"
-  }
+    "name": "ng-calc-input",
+    "version": "0.0.2",
+    "author": "Aaron DeWitt",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/adewitt76/ng-calc-input"
+    },
+    "peerDependencies": {
+        "@angular/common": "^8.2.3",
+        "@angular/core": "^8.2.3"
+    }
 }
