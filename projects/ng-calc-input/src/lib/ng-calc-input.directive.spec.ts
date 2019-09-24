@@ -5,10 +5,11 @@ import { By } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
-  template: `<input type="text" calc-input [formControl]="numberInput">`
+  template: `<input type="text" [calc-input]="calcFormat" [formControl]="numberInput">`
 })
 class TestInputComponent {
   numberInput = new FormControl('');
+  calcFormat = '';
 
   onKeyPress(event: KeyboardEvent) {
     this.numberInput.setValue(event.key);
@@ -60,6 +61,7 @@ describe('NgCalcInputDirective', () => {
   });
 
   it('should accept a decimal point', () => {
+    setFormat(1, 1);
     const keypress = '.';
     const eventSpy = simulateKeyPress(keypress);
     expect(eventSpy.preventDefault).not.toHaveBeenCalled();
@@ -77,16 +79,16 @@ describe('NgCalcInputDirective', () => {
     expect(eventSpy.preventDefault).toHaveBeenCalled();
   });
 
-  it('should not allow negative key to be pressed when current position of cursor in not at the start of the line.', () => {
+  it('should not allow negative key to be pressed when current position of cursor is not at the start of the line.', () => {
     const keypress = '-';
-    setComponentValue('123', 2);
+    setComponentValue('123', 2, 2);
     const eventSpy = simulateKeyPress(keypress);
     expect(eventSpy.preventDefault).toHaveBeenCalled();
   });
 
   it('should not allow negative key to be pressed again when negative symbol is present.', () => {
     const keypress = '-';
-    setComponentValue('-123', 0);
+    setComponentValue('-123', 0, 0);
     const eventSpy = simulateKeyPress(keypress);
     expect(eventSpy.preventDefault).toHaveBeenCalled();
   });
@@ -98,7 +100,7 @@ describe('NgCalcInputDirective', () => {
     expect(eventSpy.preventDefault).toHaveBeenCalled();
   });
 
-  it('should not allow a zero key to be pressed when there is a value and the cursor is at the start of the line', () => {
+  xit('should not allow a zero key to be pressed when there is a value and the cursor is at the start of the line', () => {
     const keypress = '0';
     setComponentValue('120', 0, 0);
     const eventSpy = simulateKeyPress(keypress);
@@ -112,13 +114,58 @@ describe('NgCalcInputDirective', () => {
     expect(eventSpy.preventDefault).toHaveBeenCalled();
   });
 
-    // it('should not allow more characters than max character limit', () => {
-    //   const maxCharLimit = 3;
-    //   _component.maxCharacters = 3;
-    //   setComponentValue('123');
-    //   simulateKeyPress('4');
-    //   expect(_component.numericalInput.value.length).toBe(maxCharLimit);
-    // });
+  it('should not allow more characters than max character limit', () => {
+    const maxCharLimit = 3;
+    component.calcFormat = maxCharLimit.toString();
+    fixture.detectChanges();
+    setComponentValue('123');
+    const eventSpy = simulateKeyPress('4');
+    expect(eventSpy.preventDefault).toHaveBeenCalledTimes(1);
+  });
+
+  it('should allow more characters when not at max character limit', () => {
+    const maxCharLimit = 4;
+    component.calcFormat = maxCharLimit.toString();
+    fixture.detectChanges();
+    setComponentValue('123');
+    const eventSpy = simulateKeyPress('4');
+    expect(eventSpy.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('Should not allow the decimal key to print when maxPrecision is 0', () => {
+    setFormat(5, 0);
+    setComponentValue('12');
+    const eventSpy = simulateKeyPress('.');
+    expect(eventSpy.preventDefault).toHaveBeenCalledTimes(1);
+  });
+
+  it('Should allow the decimal key to print when maxPrecision is 1', () => {
+    setFormat(2, 1);
+    setComponentValue('0');
+    const eventSpy = simulateKeyPress('.');
+    expect(eventSpy.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('Should allow the decimal key to print when maxPrecision is 3 with multiple zeros after the decimal', () => {
+    setFormat(1, 3);
+    setComponentValue('1.00');
+    const eventSpy = simulateKeyPress('2');
+    expect(eventSpy.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('Should allow the negative key to print when maxInteger is 0 and maxPrecision is greater than 0', () => {
+    setFormat(0, 1);
+    setComponentValue('');
+    const eventSpy = simulateKeyPress('-');
+    expect(eventSpy.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('Should not allow the decimal key to print when maxPrecision is 3 and the 4th digit is typed to the right of the decimal', () => {
+    setFormat(1, 3);
+    setComponentValue('1.000');
+    const eventSpy = simulateKeyPress('0');
+    expect(eventSpy.preventDefault).toHaveBeenCalledTimes(1);
+  });
 
   //   it('should allow a zero key to be pressed when all is selected', () => {
   //     setComponentValue('120');
@@ -146,33 +193,6 @@ describe('NgCalcInputDirective', () => {
   //     expect(_component.numericalInput.value).toBe('-1');
   //   });
 
-  //   it('Should not allow the decimal key to print when maxPrecision is 0', () => {
-  //     _component.maxPrecision = 0;
-  //     setComponentValue('0');
-  //     simulateKeyPress('.');
-  //     expect(_component.numericalInput.value).toBe('0');
-  //   });
-
-  //   it('Should allow the decimal key to print when maxPrecision is 1', () => {
-  //     _component.maxPrecision = 1;
-  //     setComponentValue('0');
-  //     simulateKeyPress('.');
-  //     expect(_component.numericalInput.value).toBe('0.');
-  //   });
-
-  //   it('Should allow the decimal key to print when maxPrecision is 3 with multiple zeros after the decimal', () => {
-  //     _component.maxPrecision = 3;
-  //     setComponentValue('0.00');
-  //     simulateKeyPress('1');
-  //     expect(_component.numericalInput.value).toBe('0.001');
-  //   });
-
-  //   it('Should not allow the decimal key to print when maxPrecision is 3 and the 4th digit is typed behind the decimal', () => {
-  //     _component.maxPrecision = 3;
-  //     setComponentValue('0.001');
-  //     simulateKeyPress('2');
-  //     expect(_component.numericalInput.value).toBe('0.001');
-  //   });
 
   function setComponentValue(value: string, selectionStart?: number, selectionEnd?: number): void {
     inputElement.value = value;
@@ -186,5 +206,10 @@ describe('NgCalcInputDirective', () => {
     spyOn(event, 'preventDefault');
     inputElement.dispatchEvent(event);
     return event;
+  }
+
+  function setFormat(maxLength: number, precision: number) {
+    component.calcFormat = `${maxLength}.${precision}`;
+    fixture.detectChanges();
   }
 });

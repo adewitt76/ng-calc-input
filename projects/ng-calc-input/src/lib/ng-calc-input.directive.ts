@@ -1,13 +1,13 @@
-import { Directive, HostListener, ElementRef, asNativeElements } from '@angular/core';
+import { Directive, HostListener, ElementRef, asNativeElements, Input, DebugElement } from '@angular/core';
 
 @Directive({
   selector: '[calc-input]'
 })
 export class NgCalcInputDirective {
-  private inputElement;
 
-  constructor(private el: ElementRef) {
-    this.inputElement = el;
+  @Input('calc-input') calcFormat = '140.0';
+
+  constructor(private inputElement: ElementRef) {
   }
 
   @HostListener('keypress', ['$event']) onKeyPress(event: KeyboardEvent) {
@@ -18,47 +18,19 @@ export class NgCalcInputDirective {
   }
 
   private keyPressIsNotValid(key: string): boolean {
-    const isNumber = new RegExp('[0-9]').test(key);
-    const isPeriod = key === '.';
-    const isNegative = key === '-';
+    const maxIntegerLength = parseInt(this.calcFormat, 10);
+    const precision = (this.calcFormat && this.calcFormat.includes('.')) ? parseInt(this.calcFormat.split('.')[1], 10) : 0;
 
-    if (isNumber === false &&
-      isPeriod === false &&
-      isNegative === false) {
-      return true;
-    }
+    const nativeElement = this.inputElement.nativeElement as HTMLInputElement;
+    const beginningSubstring = nativeElement.value.substring(0, nativeElement.selectionStart);
+    const endSubstring = nativeElement.value.substring(nativeElement.selectionEnd, nativeElement.value.length);
+    const parsedString = beginningSubstring + key + endSubstring;
 
-    if (isNegative) {
-      if (!(this.inputElement.nativeElement.selectionStart === 0 ||
-          this.inputElement.nativeElement.selectionStart === null) ||
-          this.inputElement.nativeElement.value.includes('-') ||
-          this.inputElement.nativeElement.value < 0 ) {
-        return true;
-      }
-    }
+    console.log(parsedString);
 
-    if (isPeriod) {
-      if (this.inputElement.nativeElement.value.includes('.')) {
-        return true;
-      }
-    }
+    // tslint:disable-next-line:max-line-length
+    const regularExp =  precision && precision > 0 ? `^-?((\\d{0,${maxIntegerLength}}(\\.\\d{0,${precision}})?)|(\\.\\d{0,${precision}}))$` : `^-?(\\d{0,${maxIntegerLength}})$`;
 
-    return this.isSpecialRule(key);
-  }
-
-  private isSpecialRule(key: string): boolean {
-    const isLeadingCharacter = this.inputElement.nativeElement.selectionStart === 0;
-    const isZero = key === '0';
-
-    if (isLeadingCharacter && this.inputElement.nativeElement.value < 0) {
-      return true;
-    }
-
-    if (isZero) {
-      if (this.inputElement.nativeElement.value && isLeadingCharacter) {
-        return true;
-      }
-    }
-    return false;
+    return !(new RegExp(regularExp).test(parsedString));
   }
 }
