@@ -13,20 +13,8 @@ export class NgCalcInputDirective {
   @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
     const key = event.key;
 
-    if (key === 'Enter' ||
-        key === 'Backspace' ||
-        key === 'Control' ||
-        key === 'Tab' ||
-        key === 'Shift' ||
-        key === 'CapsLock' ||
-        key === 'Delete' ||
-        key === 'End' ||
-        key === 'Home' ||
-        key === 'PageUp' ||
-        key === 'PageDown' ||
-        key.includes('Arrow') ||
-       event.ctrlKey || event.metaKey || event.altKey) {
-          return;
+    if (key.length > 1) {
+      return;
     }
 
     if (this.keyPressIsNotValid(key)) {

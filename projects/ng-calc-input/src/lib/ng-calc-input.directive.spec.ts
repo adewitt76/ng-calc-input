@@ -45,7 +45,7 @@ describe('NgCalcInputDirective', () => {
     inputElement.selectionEnd = 3;
     inputElement.dispatchEvent(new Event('input'));
 
-    const event = new KeyboardEvent('keypress', { key: ' ' });
+    const event = new KeyboardEvent('keydown', { key: ' ' });
     spyOn(event, 'preventDefault');
 
     inputElement.dispatchEvent(event);
@@ -202,7 +202,7 @@ describe('NgCalcInputDirective', () => {
   }
 
   function simulateKeyPress(key: string): KeyboardEvent {
-    const event = new KeyboardEvent('keypress', { key });
+    const event = new KeyboardEvent('keydown', { key });
     spyOn(event, 'preventDefault');
     inputElement.dispatchEvent(event);
     return event;
