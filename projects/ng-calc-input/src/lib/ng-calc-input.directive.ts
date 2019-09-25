@@ -10,31 +10,26 @@ export class NgCalcInputDirective {
   constructor(private inputElement: ElementRef) {
   }
 
-  @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
-    console.log('in keydown evetnt');
-    console.log(`Key: ${event.key} KeyCode: ${event.keyCode} Which: ${event.which}`);
-
-    const key = event.key;
-
-    if (key.length > 1) {
+  @HostListener('beforeinput', ['$event']) onBeforeInput(event: any) {
+    if (event.data === null) {
       return;
     }
 
-    if (this.keyPressIsNotValid(key)) {
+    if (this.keyPressIsNotValid(event)) {
       event.preventDefault();
     }
   }
 
-  private keyPressIsNotValid(key: string): boolean {
+  private keyPressIsNotValid(event: any): boolean {
     const maxIntegerLength = parseInt(this.calcFormat, 10);
     const precision = (this.calcFormat && this.calcFormat.includes('.')) ? parseInt(this.calcFormat.split('.')[1], 10) : 0;
 
     const nativeElement = this.inputElement.nativeElement as HTMLInputElement;
     const beginningSubstring = nativeElement.value.substring(0, nativeElement.selectionStart);
     const endSubstring = nativeElement.value.substring(nativeElement.selectionEnd, nativeElement.value.length);
-    const parsedString = beginningSubstring + key + endSubstring;
+    const parsedString = beginningSubstring + event.data + endSubstring;
 
-    console.log(parsedString);
+    // console.log(parsedString);
 
     // tslint:disable-next-line:max-line-length
     const regularExp =  precision && precision > 0 ? `^-?((\\d{0,${maxIntegerLength}}(\\.\\d{0,${precision}})?)|(\\.\\d{0,${precision}}))$` : `^-?(\\d{0,${maxIntegerLength}})$`;
