@@ -11,6 +11,9 @@ export class NgCalcInputDirective {
   }
 
   @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
+    console.log('in keydown evetnt');
+    console.log(`Key: ${event.key} KeyCode: ${event.keyCode} Which: ${event.which}`);
+
     const key = event.key;
 
     if (key.length > 1) {
