@@ -1,5 +1,5 @@
 <label>
   Number:
-  <input type="text" calc-input="5.3" [formControl]="numberInput">
+  <input type="text" calc-input="5.3" [formControl]="numberInput" (keyup)="test($event)">
 </label>
 <p>Value: {{ numberInput.value }}</p>

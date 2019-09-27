@@ -16,6 +16,16 @@ export class NgCalcInputDirective {
     console.log('inputElemnet');
     console.log(this.inputElement);
 
+    /// Not TESTED
+    if (event.inputType.includes('delete')) {
+        if (event.target.value.length <= 1) {
+          event.target.value = '0';
+          event.preventDefault();
+          return;
+        }
+      }
+    ////
+
     console.log('event.data: ' + event.data);
     if (event.data === null) {
       return;
@@ -23,7 +33,14 @@ export class NgCalcInputDirective {
 
     if (this.keyPressIsNotValid(event)) {
       event.preventDefault();
+      return;
     }
+
+    /// Not TESTED
+    if (this.inputElement.nativeElement.value === '0') {
+      this.inputElement.nativeElement.value = '';
+    }
+    ////
   }
 
   private keyPressIsNotValid(event: any): boolean {

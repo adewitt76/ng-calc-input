@@ -8,5 +8,9 @@ import { FormControl } from '@angular/forms';
 })
 export class AppComponent {
   title = 'ng-calc-input-demo';
-  numberInput = new FormControl('');
+  numberInput = new FormControl('0');
+
+  public test(event: Event) {
+    console.log(event);
+  }
 }
