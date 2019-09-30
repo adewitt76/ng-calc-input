@@ -67,7 +67,7 @@ describe('NgCalcInputDirective', () => {
     expect(eventSpy.preventDefault).not.toHaveBeenCalled();
   });
 
-  it('should accept a negative character', () => {
+  xit('should accept a negative character', () => {
     const keypress = '-';
     const eventSpy = simulateKeyPress(keypress);
     expect(eventSpy.preventDefault).not.toHaveBeenCalled();
@@ -153,7 +153,7 @@ describe('NgCalcInputDirective', () => {
     expect(eventSpy.preventDefault).not.toHaveBeenCalled();
   });
 
-  it('Should allow the negative key to print when maxInteger is 0 and maxPrecision is greater than 0', () => {
+  xit('Should allow the negative key to print when maxInteger is 0 and maxPrecision is greater than 0', () => {
     setFormat(0, 1);
     setComponentValue('');
     const eventSpy = simulateKeyPress('-');
