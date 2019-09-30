@@ -11,9 +11,11 @@ export class NgCalcInputDirective {
   }
 
   @HostListener('beforeinput', ['$event']) onBeforeInput(event: any) {
+
     if (event.data === null) {
       return;
     }
+
     if (this.keyPressIsNotValid(event)) {
       event.preventDefault();
       return;
@@ -30,8 +32,13 @@ export class NgCalcInputDirective {
     const parsedString = beginningSubstring + event.data + endSubstring;
 
     // tslint:disable-next-line:max-line-length
-    const regularExp =  precision && precision > 0 ? `^-?((\\d{0,${maxIntegerLength}}(\\.\\d{0,${precision}})?)|(\\.\\d{0,${precision}}))$` : `^-?(\\d{0,${maxIntegerLength}})$`;
+    const regularExp =  precision && precision > 0 ? `^((\\d{0,${maxIntegerLength}}(\\.\\d{0,${precision}})?)|(\\.\\d{0,${precision}}))$` : `^(\\d{0,${maxIntegerLength}})$`;
 
     return !(new RegExp(regularExp).test(parsedString));
   }
 }
+
+
+// the following allows negative characters
+// tslint:disable-next-line:max-line-length
+// const regularExp =  precision && precision > 0 ? `^-?((\\d{0,${maxIntegerLength}}(\\.\\d{0,${precision}})?)|(\\.\\d{0,${precision}}))$` : `^-?(\\d{0,${maxIntegerLength}})$`;
