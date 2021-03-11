@@ -1,27 +1,38 @@
 # NgCalcInput
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.0.
+NgCalcInput is a simple input that allows only for the input numbers at the given precision.
 
-## Development server
+## Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+    $ npm i ng-calc-input
 
-## Code scaffolding
+## Example Usage
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+app.component.html:
+~~~html
+<label>
+  Number:
+  <input type="text" calc-input="5.3" [formControl]="numberInput" (keyup)="test($event)">
+</label>
+<p>Value: {{ numberInput.value }}</p>
+~~~
 
-## Build
+app.component.ts:
+~~~javascript
+export class AppComponent {
+  title = 'ng-calc-input-demo';
+  numberInput = new FormControl('0');
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+  public test(event: Event) {
+    console.log(event);
+  }
+}
+~~~
 
-## Running unit tests
+Styling is left up to the consumer.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The input does only allows numbers and '.'.
 
-## Running end-to-end tests
+Input type must be "text". The first number is the number of allowed characters before the decimal. The second number is the precision after the decimal.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+So the above code will only allow a number like: 55555.333

@@ -1,10 +1,10 @@
 {
-  "name": "ng-calc-input",
-  "version": "0.0.0",
+  "name": "@adewitt76/ng-calc-input",
+  "version": "0.2.1",
   "author": "Aaron DeWitt",
   "repository": {
     "type": "git",
-    "url": "https://github.com/adewitt76/ng-calc-input"
+    "url": "git+https://github.com/adewitt76/ng-calc-input.git"
   },
   "scripts": {
     "ng": "ng",
@@ -14,27 +14,26 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
-    "@angular/animations": "^8.2.14",
-    "@angular/common": "^8.2.14",
-    "@angular/compiler": "^8.2.14",
-    "@angular/core": "^8.2.14",
-    "@angular/forms": "^8.2.14",
-    "@angular/platform-browser": "^8.2.14",
-    "@angular/platform-browser-dynamic": "^8.2.14",
-    "@angular/router": "^8.2.14",
+    "@angular/animations": "^9.1.13",
+    "@angular/cli": "^9.1.15",
+    "@angular/common": "^9.1.13",
+    "@angular/compiler": "^9.1.13",
+    "@angular/core": "^9.1.13",
+    "@angular/forms": "^9.1.13",
+    "@angular/platform-browser": "^9.1.13",
+    "@angular/platform-browser-dynamic": "^9.1.13",
+    "@angular/router": "^9.1.13",
     "@types/dom-inputevent": "^1.0.6",
-    "rxjs": "~6.4.0",
+    "rxjs": "~6.6.6",
     "tslib": "^1.14.1",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.10.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.803.29",
-    "@angular-devkit/build-ng-packagr": "^0.803.29",
-    "@angular/cli": "^11.2.3",
-    "@angular/compiler-cli": "^8.2.14",
-    "@angular/language-service": "^8.2.14",
+    "@angular-devkit/build-angular": "~0.900.1",
+    "@angular-devkit/build-ng-packagr": "~0.900.1",
+    "@angular/compiler-cli": "^9.1.13",
+    "@angular/language-service": "^9.1.13",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "^2.0.8",
     "@types/node": "~8.9.4",
@@ -50,7 +49,14 @@
     "protractor": "^7.0.0",
     "ts-node": "~7.0.0",
     "tsickle": "^0.36.0",
-    "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
-  }
+    "tslint": "~6.1.2",
+    "typescript": "<3.9.0"
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.0.",
+  "bugs": {
+    "url": "https://github.com/adewitt76/ng-calc-input/issues"
+  },
+  "homepage": "https://github.com/adewitt76/ng-calc-input#readme",
+  "main": "index.js",
+  "license": "ISC"
 }

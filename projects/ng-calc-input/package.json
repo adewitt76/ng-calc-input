@@ -1,13 +1,23 @@
 {
     "name": "ng-calc-input",
-    "version": "0.1.0",
+    "version": "0.2.1",
     "author": "Aaron DeWitt",
     "repository": {
         "type": "git",
-        "url": "https://github.com/adewitt76/ng-calc-input"
+        "url": "git+https://github.com/adewitt76/ng-calc-input.git"
     },
     "peerDependencies": {
-        "@angular/common": "^8.2.3",
-        "@angular/core": "^8.2.3"
-    }
+        "@angular/common": "^9.0.0",
+        "@angular/core": "^9.0.0"
+    },
+    "description": "This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.3.",
+    "bugs": {
+        "url": "https://github.com/adewitt76/ng-calc-input/issues"
+    },
+    "homepage": "https://github.com/adewitt76/ng-calc-input#readme",
+    "main": "karma.conf.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "license": "ISC"
 }
