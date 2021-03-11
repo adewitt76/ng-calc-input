@@ -1,24 +1,38 @@
 # NgCalcInput
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.3.
+NgCalcInput is a simple input that allows only for the input numbers at the given precision.
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name --project ng-calc-input` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-calc-input`.
-> Note: Don't forget to add `--project ng-calc-input` or else it will be added to the default project in your `angular.json` file. 
+    $ npm i ng-calc-input
 
-## Build
+## Example Usage
 
-Run `ng build ng-calc-input` to build the project. The build artifacts will be stored in the `dist/` directory.
+app.component.html:
+~~~html
+<label>
+  Number:
+  <input type="text" calc-input="5.3" [formControl]="numberInput" (keyup)="test($event)">
+</label>
+<p>Value: {{ numberInput.value }}</p>
+~~~
 
-## Publishing
+app.component.ts:
+~~~javascript
+export class AppComponent {
+  title = 'ng-calc-input-demo';
+  numberInput = new FormControl('0');
 
-After building your library with `ng build ng-calc-input`, go to the dist folder `cd dist/ng-calc-input` and run `npm publish`.
+  public test(event: Event) {
+    console.log(event);
+  }
+}
+~~~
 
-## Running unit tests
+Styling is left up to the consumer.
 
-Run `ng test ng-calc-input` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The input does only allows numbers and '.'.
 
-## Further help
+Input type must be "text". The first number is the number of allowed characters before the decimal. The second number is the precision after the decimal.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+So the above code will only allow a number like: 55555.333

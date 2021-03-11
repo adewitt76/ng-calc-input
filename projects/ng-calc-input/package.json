@@ -1,16 +1,16 @@
 {
     "name": "ng-calc-input",
-    "version": "0.2.1",
+    "version": "0.2.3",
     "author": "Aaron DeWitt",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/adewitt76/ng-calc-input.git"
     },
     "peerDependencies": {
-        "@angular/common": "^9.0.0",
-        "@angular/core": "^9.0.0"
+        "@angular/common": ">9.0.0",
+        "@angular/core": ">9.0.0"
     },
-    "description": "This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.3.",
+    "description": "This library limits character on input to number and precision",
     "bugs": {
         "url": "https://github.com/adewitt76/ng-calc-input/issues"
     },
