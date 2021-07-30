@@ -31,8 +31,6 @@ export class AppComponent {
 
 Styling is left up to the consumer.
 
-The input does only allows numbers and '.'.
-
 Input type must be "text". The first number is the number of allowed characters before the decimal. The second number is the precision after the decimal.
 
 So the above code will only allow a number like: 55555.333
