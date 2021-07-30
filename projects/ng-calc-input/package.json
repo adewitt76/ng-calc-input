@@ -1,26 +1,26 @@
 {
-    "name": "ng-calc-input",
-    "version": "0.2.3",
-    "author": "Aaron DeWitt",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/adewitt76/ng-calc-input.git"
-    },
-    "peerDependencies": {
-        "@angular/common": ">9.0.0",
-        "@angular/core": ">9.0.0"
-    },
-    "description": "This library limits character on input to number and precision",
-    "bugs": {
-        "url": "https://github.com/adewitt76/ng-calc-input/issues"
-    },
-    "homepage": "https://github.com/adewitt76/ng-calc-input#readme",
-    "main": "karma.conf.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "dependencies": {
-      "tslib": "^2.0.0"
-    },
-    "license": "ISC"
+  "name": "ng-calc-input",
+  "version": "0.2.3",
+  "author": "Aaron DeWitt",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adewitt76/ng-calc-input.git"
+  },
+  "peerDependencies": {
+    "@angular/common": ">11.0.0",
+    "@angular/core": ">11.0.0",
+    "tslib": ">2.0.0"
+  },
+  "description": "This library limits character on input to number and precision",
+  "bugs": {
+    "url": "https://github.com/adewitt76/ng-calc-input/issues"
+  },
+  "homepage": "https://github.com/adewitt76/ng-calc-input#readme",
+  "main": "karma.conf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+  },
+  "license": "ISC"
 }
